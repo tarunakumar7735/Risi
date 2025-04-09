@@ -1,0 +1,60 @@
+import oracledb as orc
+class SpaceError(Exception):pass
+class ZeroLengthError(Exception):pass
+class InvalidNameError(BaseException):pass
+
+def validation(name):
+    if (name.isspace()):
+        raise SpaceError
+    else:
+        words=name.split()
+        if (len(words)==0):
+            raise ZeroLengthError
+        else:
+            res=True
+            for val in words:
+                if (not val.isalpha()):
+                    res=False
+                    break
+            if(not res):
+                raise InvalidNameError
+            else:
+                return name
+def addstudent():
+        while("tarun"):
+            try:
+                con=orc.connect("system/773733@localhost/orcl")
+                cur=con.cursor()
+                print("*"*50)
+                sno=int(input("enter student number:"))
+                sname=validation(input("enter student name:"))
+                marks=float(input("enter student marks:"))
+                ir="insert into student values (%d,'%s',%f)" %(sno,sname,marks)
+                cur.execute(ir)
+                con.commit()
+                print("\t{} record inserted".format(cur.rowcount))
+                print("*"*50)
+                n=input("u want to add another student(yes or no):")
+                if (n.lower()=="no"):
+                    break
+            except orc.DatabaseError as k:
+                print("problrn in oracle DB:",k)
+            except ValueError:
+                print("don't enter alnums,strs and symbols for student number or student marks")
+            except SpaceError:
+                print("don't enter space for ur name")
+            except ZeroLengthError:
+                print("u must enter ur name")
+            except InvalidNameError:
+                print("ur name is invalid-----try again")
+addstudent()
+
+
+
+
+
+
+
+
+
+

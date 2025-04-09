@@ -1,0 +1,10 @@
+def menu():
+    print("-"*50)
+    print("1. Add Student")
+    print("2. Delete Student")
+    print("3. Update Student")
+    print("4. Search Student")
+    print("5. Select Single Student")
+    print("6. Select All Student")
+    print("7. EXIT")
+    print("-"*50)
