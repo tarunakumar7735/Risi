@@ -1,1 +1,1 @@
-basic student information priject
+basic student information project
